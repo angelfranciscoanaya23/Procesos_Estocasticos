@@ -1,0 +1,33 @@
+import re
+def pig_latin(string):
+    vocal_re = r"^[aeiou]"
+    #re1_consonantes
+    re1 = r"[^aeiou]*"
+    #re2_vocal_y_consonante
+    re2 = r"[aeiou].*"
+
+    if (isinstance(string, str)) and (re.search(vocal_re, string) is not None):
+        #Entrara si la cadena empieza con una vocal
+        print("Comienza con vocal -> ", string)
+        return string + "way"
+    elif isinstance(string, str):
+        #vamos a encontrar la primera coindicendia con una vocal, para obtener las consonantes.
+        vocal_re2 = r"[aeiou]"
+        resultado_vocal = re.search(vocal_re2, string)
+        resultado = re.search(re1, string)
+        resultado2 = re.search(re2, string)
+        #Si no tiene ninguna vocal la palabra solo agregamos el postfijo -ay-
+        if resultado_vocal is None:
+            return string + "ay"
+        else:
+            print(f"No empieza con VOCAL -> {string}")
+            return resultado2.group() + resultado.group() + "ay"
+    
+    return string
+
+
+lista = ["hello", "algorithm", "office", "think", "computer", "ddpw"]
+resultados = ["ellohay", "algorithmway", "officeway", "inkthay", "omputercay", "ddpway"]
+lista2 = ["francia", "italia", "españa", "alemania"]
+
+print(pig_latin(list(map(pig_latin, lista2))))
